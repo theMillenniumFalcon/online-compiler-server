@@ -10,10 +10,13 @@ export interface JdoodleStruct {
 }
 
 export interface CustomRequest extends Request {
-    params: any
+    params: any;
+    body: any;
+    file: any;
 }
 
 export interface CustomResponse extends Response {
-    header: any,
-    json: any
+    header: any;
+    json: any;
+    status: any;
 }

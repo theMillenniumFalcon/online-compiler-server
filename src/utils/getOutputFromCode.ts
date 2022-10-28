@@ -1,5 +1,4 @@
 import axios from "axios"
-
 import { JdoodleStruct } from "../types/types"
 
 export default function getOutputFromCode(
