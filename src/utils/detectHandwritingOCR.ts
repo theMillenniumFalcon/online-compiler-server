@@ -1,7 +1,7 @@
 import vision from "@google-cloud/vision"
 
 export default function detectHandwritingOCR(fileBuffer: Buffer): Promise<any> {
-    return new Promise((resolve, reject) => {
+    return new Promise(async (resolve, reject) => {
         const client = new vision.ImageAnnotatorClient()
 
         const request = {
@@ -13,15 +13,13 @@ export default function detectHandwritingOCR(fileBuffer: Buffer): Promise<any> {
             },
         }
 
-        return client
-            .documentTextDetection(request)
-            .then((results) => {
-                const { fullTextAnnotation } = results[0]
-                resolve(fullTextAnnotation.text)
-            })
-            .catch((err) => {
-                console.error("[ERROR]: ", err)
-                reject(err)
-            })
+        try {
+            const results = await client.documentTextDetection(request)
+            const { fullTextAnnotation } = results[0]
+            resolve(fullTextAnnotation.text)
+        } catch (error) {
+            console.error("[ERROR]: ", error)
+            reject(error)
+        }
     })
 }
